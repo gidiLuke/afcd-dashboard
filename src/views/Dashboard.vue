@@ -12,9 +12,18 @@
               </CCol>
             </CRow>
             <CRow>
-              <MainChartExample
-                style="height: 300px; max-height: 300px; margin-top: 40px"
-              />
+              <CCol :sm="6">
+                <CChartDoughnut :data="defaultData" style="max-width: 100%; margin-top: 20px;"/>
+              </CCol>
+              <CCol :sm="6">
+                <div style="margin-top: 40px">
+                <div class="text-medium-emphasis"><h4>Scratched Chips</h4></div>
+                <div class="text-high-emphasis text-center align-items-center align-content-center">
+                  <h2>20/60</h2>
+                  <hr>
+                  <h2>33 %</h2></div>
+                </div>
+              </CCol>
             </CRow>
           </CCardBody>
         </CCard>
@@ -250,7 +259,21 @@ import MainChartExample from './charts/MainChartExample'
 export default {
   name: 'Dashboard',
   components: {
-    MainChartExample
+    MainChartExample,
+    CChartDoughnut
+  },
+  computed: {
+    defaultData() {
+      return {
+        labels: ['Ok', 'Scratched'],
+        datasets: [
+          {
+            backgroundColor: ['#41B883', '#E46651'],
+            data: [40, 20],
+          },
+        ],
+      }
+    },
   },
   setup() {
     const progressGroupExample1 = [
@@ -376,4 +399,7 @@ export default {
     }
   },
 }
+
+import { CChartDoughnut } from '@coreui/vue-chartjs'
+
 </script>
