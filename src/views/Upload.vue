@@ -51,7 +51,7 @@
                   <CCardBody>
                     <CRow>
                       <CCol :sm="12">
-                        <h4 id="use-test-set" class="card-title mb-0">Upload your own images</h4>
+                        <h4 id="use-test-set" class="card-title mb-0">Use the provided test set</h4>
                         <div class="small text-medium-emphasis">
                           Click here to use the test set provided for hackatum 2021.</div>
                       </CCol>
