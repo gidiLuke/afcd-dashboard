@@ -285,10 +285,18 @@
         </CCard>
       </CCol>
     </CRow>
+    <div>
+      <input ref="fileInput" type="file" multiple>
+      <button @click="uploadImages">Submit</button>
+      <div>
+        <img v-for="(item, index) in response" :key="index" :src="item.url" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { ref, getCurrentInstance } from 'vue'
 import avatar1 from '@/assets/images/avatars/1.jpg'
 import avatar2 from '@/assets/images/avatars/2.jpg'
 import avatar3 from '@/assets/images/avatars/3.jpg'
@@ -307,6 +315,31 @@ export default {
     WidgetsStatsD,
   },
   setup() {
+    const fileInput = ref(null)
+
+    const imageList = []
+
+    const response = ref([])
+
+    const { proxy } = getCurrentInstance()
+
+    const uploadImages = () => {
+      for (const file of fileInput.value.files) {
+        // convert file to base64 string
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+          imageList.push(reader.result)
+        }
+      }
+
+      proxy.$axios
+        .post('https://hackatumimageupload.azurewebsites.net/api/uploadImage?code=jskoDScmdLRL8xy7W7FQdO52qm3bDMHyRJj6lXvH7sYKYi1rza7xlw==',
+          { images: imageList },
+        )
+        .then((res) => (response.value = res.data))
+    }
+
     const progressGroupExample1 = [
       { title: 'Monday', value1: 34, value2: 78 },
       { title: 'Tuesday', value1: 56, value2: 94 },
@@ -427,6 +460,10 @@ export default {
       progressGroupExample1,
       progressGroupExample2,
       progressGroupExample3,
+      fileInput,
+      imageList,
+      uploadImages,
+      response,
     }
   },
 }
