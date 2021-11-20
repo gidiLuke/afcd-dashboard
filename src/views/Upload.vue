@@ -1,60 +1,30 @@
 <template>
 
   <div>
-    <CRow class="">
-      <CCol :md="6">
-        <CCard class="mb-4">
-          <CCardBody>
-            <CRow>
-              <CCol :sm="12">
-                <h4 id="overall" class="card-title mb-0">Overall Statistics</h4>
-                <div class="small text-medium-emphasis">for the batch of images uploaded.</div>
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol :sm="6">
-                <CChartDoughnut :data="defaultData" style="max-width: 100%; margin-top: 20px;"/>
-              </CCol>
-              <CCol :sm="6">
-                <div style="margin-top: 40px">
-                <div class="text-medium-emphasis text-center"><h4>Scratched Chips</h4></div>
-                <div class="text-high-emphasis text-center align-items-center align-content-center"
-                     style="margin-top: 40px">
-                  <h2>20/60</h2>
-                  <hr>
-                  <h2>33 %</h2></div>
-                </div>
-              </CCol>
-            </CRow>
-          </CCardBody>
-        </CCard>
-      </CCol>
-      <CCol :md="6">
-        <CCard class="mb-4">
-          <CCardBody>
-            <CRow>
-              <CCol :sm="12">
-                <h4 id="distribution" class="card-title mb-0">Distribution of Faulty Chips</h4>
-                <div class="small text-medium-emphasis">This graph shows when the faulty chips were detected.
-                  The time is derived from the file name.</div>
-              </CCol>
-            </CRow>
-            <CRow>
-              <MainChartExample
-                style="height: 300px; max-height: 300px; margin-top: 40px"
-              />
-            </CRow>
-          </CCardBody>
-        </CCard>
-      </CCol>
-    </CRow>
-    <!--<WidgetsStatsD />-->
-
     <CRow>
       <CCol :md="12">
         <CCard class="mb-4">
-          <CCardHeader>Image Gallery</CCardHeader>
+          <CCardHeader>Upload the images of the chips</CCardHeader>
           <CCardBody>
+            <form id="file-upload-form" class="uploader">
+              <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+
+              <label for="file-upload" id="file-drag">
+                <img id="file-image" src="#" alt="Preview" class="hidden">
+                <div id="start">
+                  <i class="fa fa-download" aria-hidden="true"></i>
+                  <div>Select a file or drag here</div>
+                  <div id="notimage" class="hidden">Please select an image</div>
+                  <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                </div>
+                <div id="response" class="hidden">
+                  <div id="messages"></div>
+                  <progress class="progress" id="file-progress" value="0">
+                    <span>0</span>%
+                  </progress>
+                </div>
+              </label>
+            </form>
           </CCardBody>
         </CCard>
       </CCol>
@@ -73,7 +43,7 @@ import avatar6 from '@/assets/images/avatars/6.jpg'
 export default {
   name: 'Dashboard',
   components: {
-    CChartDoughnut,
+
   },
   computed: {
     defaultData() {
@@ -213,6 +183,12 @@ export default {
   },
 }
 
-import { CChartDoughnut } from '@coreui/vue-chartjs'
+
+
+
 
 </script>
+
+<style>
+
+</style>
