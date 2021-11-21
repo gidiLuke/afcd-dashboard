@@ -1,12 +1,18 @@
 <template>
   <div>
+    <div>
+      <loading :active="processing"
+        :can-cancel="false"
+        :oon-cancel="onCancel"
+        :is-full-page="true"></loading>
+    </div>
     <CRow>
       <CCol :md="12">
         <CCard class="mb-4">
           <CCardHeader>Upload the images of the chips</CCardHeader>
           <CCardBody>
             <CRow>
-              <CCol :md="6">
+              <CCol :md="12">
                 <CCard class="mb-4">
                   <CCardBody>
                     <CRow>
@@ -67,7 +73,7 @@
                   </CCardBody>
                 </CCard>
               </CCol>
-              <CCol :md="6">
+              <!-- <CCol :md="6">
                 <CCard class="mb-4" style="min-height: 335px">
                   <CCardBody>
                     <CRow>
@@ -97,7 +103,7 @@
                     </CRow>
                   </CCardBody>
                 </CCard>
-              </CCol>
+              </CCol> -->
             </CRow>
           </CCardBody>
         </CCard>
@@ -109,10 +115,15 @@
 <script>
 import { ref, getCurrentInstance, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'Login',
-  components: {},
+  components: {
+    Loading
+  },
   setup() {
     const fileInput = ref(null)
     const processing = ref(false)
@@ -132,6 +143,12 @@ export default {
         fileInput.value == null ||
         fileInput.value.files == null ||
         fileInput.value.files.length === 0
+    }
+
+    const onCancel = ()=> {
+      console.log('User cancelled the loader.');
+      //because the props is single flow direction, you need to set isLoading status normally.
+      processing.value = false;
     }
 
     function getBase64(file) {
@@ -167,6 +184,7 @@ export default {
       processing,
       showSelect,
       updateShowSelect,
+      onCancel
     }
   },
   computed: {},
