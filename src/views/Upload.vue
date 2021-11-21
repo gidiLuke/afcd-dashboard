@@ -150,7 +150,7 @@ export default {
         .then((results) => {
           return proxy.$axios
         .post(
-          'https://hasjdoi.azurewebsites.net/api/httptrigger?code=2lD/ki4dO30Y9nJcYZym28IATG1Xa8Jcb7fWlpPqaqutqFL9vRYNDg==',
+          'http://localhost:7071/api/HttpTrigger',
           { images: results },
         )
         })

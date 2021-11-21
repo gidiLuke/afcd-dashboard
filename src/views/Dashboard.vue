@@ -63,22 +63,19 @@
         </CCard>
       </CCol>
     </CRow>
-    <div>
-      <input ref="fileInput" type="file" multiple>
-      <button @click="uploadImages">Submit</button>
-      <div>
-        <img v-for="(item, index) in response" :key="index" :src="item.url" />
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
+import { CChartDoughnut } from '@coreui/vue-chartjs'
 
 export default {
   name: 'Dashboard',
   components: {
     CChartDoughnut,
+  },
+  setup() {
+    return {}
   },
   computed: {
     defaultData() {
