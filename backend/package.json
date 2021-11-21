@@ -1,0 +1,16 @@
+{
+  "name": "",
+  "version": "",
+  "description": "",
+  "scripts": {
+    "test": "echo \"No tests yet...\""
+  },
+  "author": "",
+  "dependencies": {
+    "@azure/storage-blob": "^12.8.0",
+    "@types/axios": "^0.14.0",
+    "canvas": "^2.8.0",
+    "https": "^1.0.0",
+    "image-size": "^1.0.0"
+  }
+}
