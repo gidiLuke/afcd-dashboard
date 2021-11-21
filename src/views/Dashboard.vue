@@ -48,6 +48,9 @@
               </CCol>
             </CRow>
             <CRow>
+              <MainChartExample
+                style="height: 300px; max-height: 300px; margin-top: 40px"
+              />
             </CRow>
           </CCardBody>
         </CCard>
@@ -73,12 +76,14 @@ import { CChartDoughnut } from '@coreui/vue-chartjs'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 import VuePictureSwipe from 'vue3-picture-swipe'
+import MainChartExample from './charts/MainChartExample'
 
 export default {
   name: 'Dashboard',
   components: {
     CChartDoughnut,
-    VuePictureSwipe
+    VuePictureSwipe,
+    MainChartExample,
   },
   setup() {
     const store = useStore()
