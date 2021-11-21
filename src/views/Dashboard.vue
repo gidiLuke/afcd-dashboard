@@ -13,7 +13,7 @@
             </CRow>
             <CRow>
               <CCol :sm="6">
-                <CChartDoughnut :data="defaultData" style="max-width: 100%; margin-top: 20px;"/>
+                <CChartDoughnut :data="pieChartData" style="max-width: 100%; margin-top: 20px;"/>
               </CCol>
               <CCol :sm="6">
                 <div style="margin-top: 40px">
@@ -26,9 +26,9 @@
                       align-items-center align-content-center"
                     style="margin-top: 40px"
                   >
-                    <h2>20/60</h2>
+                    <h2>{{ faulty.length }}/{{ responses ? responses.length : 0 }}</h2>
                     <br />
-                    <h2>33 %</h2>
+                    <h2>{{ responses ? (faulty.length / responses.length * 100).toFixed(2) : 0 }} %</h2>
                   </div>
                 </div>
               </CCol>
@@ -59,7 +59,9 @@
       <CCol :md="12">
         <CCard class="mb-4">
           <CCardHeader>Image Gallery</CCardHeader>
-          <CCardBody></CCardBody>
+          <CCardBody>
+            <vue-picture-swipe :items="items"></vue-picture-swipe>
+          </CCardBody>
         </CCard>
       </CCol>
     </CRow>
@@ -68,28 +70,44 @@
 
 <script>
 import { CChartDoughnut } from '@coreui/vue-chartjs'
+import { useStore } from 'vuex'
+import { computed } from 'vue'
+import VuePictureSwipe from 'vue3-picture-swipe'
 
 export default {
   name: 'Dashboard',
   components: {
     CChartDoughnut,
+    VuePictureSwipe
   },
   setup() {
-    return {}
-  },
-  computed: {
-    defaultData() {
-      return {
-        labels: ['Ok', 'Scratched'],
-        datasets: [
-          {
-            backgroundColor: ['#41B883', '#E46651'],
-            data: [40, 20],
-          },
-        ],
-      }
+    const store = useStore()
+    return {
+      responses: computed(() => store.state.responses),
+      faulty: computed(() => store.getters.faulty),
+      pieChartData: computed(() => {
+        return {
+          labels: ['Ok', 'Scratched'],
+          datasets: [
+            {
+              backgroundColor: ['#41B883', '#E46651'],
+              data: store.state.responses ?
+              [store.state.responses.length - store.getters.faulty.length,
+              store.getters.faulty.length]
+              :
+              [50, 50],
+            },
+          ],
+        }
+      }),
+      items: computed(() => store.getters.galleryItems),
+    }
     },
-  },
-}
-
+  }
 </script>
+<style scoped>
+  ::v-deep img[itemprop="thumbnail"] {
+    width: 144px !important;
+    height: 144px !important;
+  }
+</style>
