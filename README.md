@@ -1,5 +1,6 @@
 ## Inspiration
-**Humankind was waiting for it long enough We detect scratches on chips.**
+**Humankind was waiting for it long enough: We detect scratches on chips.**
+
 Our challenge is simple: There shall not be any faulty chips! 
 
 ## What it does
